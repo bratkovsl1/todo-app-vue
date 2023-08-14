@@ -1,0 +1,22 @@
+$main-bg-color: #121212;
+$secondary-bg-color: #363636;
+
+// Colors for text
+$main-color-text: rgba(255, 255, 255, 0.87);
+$secondary-color-text: #AFAFAF;
+
+// color for small elements
+$background-badge: #F0F6FE;
+
+// others
+$main-color-border: #979797;
+$main-color-inputs: #1D1D1D;
+
+// size for text
+$size: 30px;
+
+// mixins
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
