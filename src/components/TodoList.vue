@@ -1,5 +1,5 @@
 <script setup>
-import TodoItem from '@/components/TodoItem.vue'
+import TodoItem from '@/components/TodoListItem.vue'
 import EmptyState from './shared/EmptyState.vue';
 
 defineProps({
