@@ -2,7 +2,7 @@
 import VButton from '@/components/UI/VButton.vue';
 import { ref } from 'vue';
 
-const props = defineProps({
+defineProps({
   todo: {
     type: Object,
     required: true,
@@ -23,8 +23,8 @@ const editTodo = (title, index) => {
   emit('editTodo', title, index);
 };
 
-const removeTodo = () => {
-  emit('removeTodo', props.todo.id)
+const removeTodo = (id) => {
+  emit('removeTodo', id)
 };
 
 const emit = defineEmits(['removeTodo', 'editTodo', 'toggleCompleted']);
@@ -40,13 +40,13 @@ const emit = defineEmits(['removeTodo', 'editTodo', 'toggleCompleted']);
       type="text"
       v-if="isEdit"
       :value="todo.title"
-      @change="editTodo($event.target.value, index)"
+      @change="editTodo($event.target.value, todo.id)"
       @keydown.enter='isEditing'
     />
     <span v-else>{{ todo.title }}</span>
     <div class="todo-item__controls">
       <v-button @click="isEditing"> edit </v-button>
-      <v-button @click.once="removeTodo"> delete </v-button>
+      <v-button @click.once="removeTodo(todo.id)"> delete </v-button>
     </div>
   </li>
 </template>
