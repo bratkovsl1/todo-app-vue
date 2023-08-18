@@ -1,13 +1,23 @@
 <script setup>
+import { computed } from 'vue'
+
 import TodoItem from '@/components/TodoListItem.vue'
 import EmptyState from './shared/EmptyState.vue';
 
-defineProps({
+const props = defineProps({
   todoList: {
     type: Array,
     required: true
   }
 })
+
+const completedTasks = computed(() => {
+  return props.todoList.filter(todo => todo.completed)
+});
+
+const uncompletedTasks = computed(() => {
+  return props.todoList.filter(todo => !todo.completed);
+});
 
 defineEmits(['removeTodo', 'editTodo', 'toggleCompleted'])
 </script>
@@ -17,9 +27,7 @@ defineEmits(['removeTodo', 'editTodo', 'toggleCompleted'])
     <h2>In progress</h2>
     <transition-group>
       <TodoItem
-      v-show='!todo.completed'
-        v-for="(todo, index) in todoList"
-        :key="todo.id"
+        v-for="(todo, index) in uncompletedTasks" :key="todo.id"
         :todo="todo"
         :index="index"
         @remove-todo='$emit("removeTodo", todo.id)'
@@ -31,8 +39,7 @@ defineEmits(['removeTodo', 'editTodo', 'toggleCompleted'])
     <h2>Done</h2>
     <transition-group>
       <TodoItem
-        v-show='todo.completed'
-        v-for="(todo, index) in todoList"
+        v-for="(todo, index) in completedTasks" 
         :key="todo.id"
         :todo="todo"
         :index="index"
